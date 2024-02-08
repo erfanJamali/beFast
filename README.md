@@ -1,4 +1,4 @@
-# befast
+# beFast
 
 its an quiz app that you have be fast at it!
 
