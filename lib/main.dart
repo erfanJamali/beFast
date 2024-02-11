@@ -1,7 +1,6 @@
-import 'dart:async';
-
 import 'package:befast/colors.dart';
 import 'package:befast/questions.dart';
+import 'package:befast/showResult_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -138,7 +137,7 @@ class _home_pageState extends State<home_page>
                                 isClicked = true;
                               }
                             });
-                              //nextQuestion();
+                            //nextQuestion();
                           },
                           borderRadius: hasClicked(index)
                               ? null
@@ -185,6 +184,26 @@ class _home_pageState extends State<home_page>
           const SizedBox(height: 50),
         ],
       ),
+      floatingActionButton: Material(
+        color: kColorWhite,
+        child: Material(
+          color: kColorDarkBlue,
+          borderRadius: BorderRadius.circular(50),
+          child: InkWell(
+            onTap: () {},
+            borderRadius: BorderRadius.circular(50),
+            child: Container(
+              padding: const EdgeInsets.all(20),
+              decoration: const BoxDecoration(shape: BoxShape.circle),
+              child: Icon(
+                Icons.library_add_check_rounded,
+                size: 30,
+                color: kColorWhite,
+              ),
+            ),
+          ),
+        ),
+      ),
     );
   }
 
@@ -205,7 +224,7 @@ class _home_pageState extends State<home_page>
                   _animationController.reset();
                   setState(() {
                     //
-                      isClicked = true;
+                    isClicked = true;
                     //
                     if (_questionIndex == questionsList.length) {
                       _questionIndex = 0;
@@ -259,12 +278,12 @@ class _home_pageState extends State<home_page>
   }
 
   void nextQuestion() {
-      _animationController.reset();
+    _animationController.reset();
     setState(() {
       //
       isClicked = false;
       //
-      if (_questionIndex+1 == questionsList.length) {
+      if (_questionIndex + 1 == questionsList.length) {
         _questionIndex = 0;
       } else {
         _questionIndex++;
@@ -272,5 +291,14 @@ class _home_pageState extends State<home_page>
       //
       _animationController.forward();
     });
+  }
+
+  void showResultPage() {
+    _animationController.clearListeners();
+    Navigator.push(
+        context,
+        ModalBottomSheetRoute(
+            builder: (context) => showResult_page(),
+            isScrollControlled: false));
   }
 }
