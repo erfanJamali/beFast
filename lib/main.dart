@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:befast/colors.dart';
 import 'package:befast/questions.dart';
 import 'package:flutter/material.dart';
@@ -14,10 +16,12 @@ late Size thisSize;
 //
 int _questionIndex = 0;
 //
-bool isClicked = false;
+bool isClicked = true;
 //
 List<int> tempAnswerLocation = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 //
+late AnimationController _animationController;
+late Animation _animation;
 
 class home_page extends StatefulWidget {
   const home_page({super.key});
@@ -26,7 +30,29 @@ class home_page extends StatefulWidget {
   State<home_page> createState() => _home_pageState();
 }
 
-class _home_pageState extends State<home_page> {
+class _home_pageState extends State<home_page>
+    with SingleTickerProviderStateMixin {
+  @override
+  void initState() {
+    super.initState();
+    //
+    _animationController =
+        AnimationController(duration: const Duration(seconds: 5), vsync: this);
+    _animation = Tween(begin: 0.0, end: 1.0).animate(_animationController)
+      ..addListener(() {
+        setState(() {
+          if ((_animation.value * 100).round() >= 98) {
+            nextQuestion();
+            if (_animationController.isAnimating) {
+              _animationController.reset();
+              _animationController.forward();
+            }
+          }
+        });
+      });
+    _animationController.forward();
+  }
+
   @override
   Widget build(BuildContext context) {
     thisSize = MediaQuery.of(context).size;
@@ -47,10 +73,18 @@ class _home_pageState extends State<home_page> {
               ),
               color: kColorWhite,
             ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(25),
+              child: LinearProgressIndicator(
+                value: _animation.value,
+                valueColor: const AlwaysStoppedAnimation(Colors.red),
+              ),
+            ),
           ),
           const SizedBox(height: 30),
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
+            physics: const AlwaysScrollableScrollPhysics(),
             child: Row(
               children: makeQuestionNumber(),
             ),
@@ -104,6 +138,7 @@ class _home_pageState extends State<home_page> {
                                 isClicked = true;
                               }
                             });
+                              //nextQuestion();
                           },
                           borderRadius: hasClicked(index)
                               ? null
@@ -119,7 +154,7 @@ class _home_pageState extends State<home_page> {
                                       color: hasClicked(index)
                                           ? kColorDarkBlue
                                           : kColorWhite,
-                                      fontSize: hasClicked(index) ? 50 : 30,
+                                      fontSize: hasClicked(index) ? 45 : 30,
                                       fontWeight: hasClicked(index)
                                           ? FontWeight.bold
                                           : null),
@@ -142,16 +177,9 @@ class _home_pageState extends State<home_page> {
               backgroundColor: MaterialStateProperty.all(kColorBlue),
             ),
             onPressed: () {
-              setState(() {
-                isClicked = false;
-                if (_questionIndex == 9) {
-                  _questionIndex = 0;
-                } else {
-                  _questionIndex++;
-                }
-              });
+              nextQuestion();
             },
-            child: Text("scape",
+            child: Text("N E X T",
                 style: TextStyle(color: kColorDarkBlue, fontSize: 35)),
           ),
           const SizedBox(height: 50),
@@ -159,64 +187,6 @@ class _home_pageState extends State<home_page> {
       ),
     );
   }
-
-  // List<Widget> makeQuestionAnswers() {
-  //   //
-  //   List<Widget> tempList = [];
-  //   //
-  //   for (int i = 0;
-  //       i < questionsList[_questionIndex].questionAnswers.length;
-  //       i++) {
-  //     tempList.add(
-  //       Container(
-  //         margin: const EdgeInsets.symmetric(vertical: 15),
-  //         decoration: BoxDecoration(
-  //             borderRadius: BorderRadius.circular(10),
-  //             border: Border.all(
-  //               color: kColorDarkBlue,
-  //               width: hasClicked(i) ? 8 : 0,
-  //             )),
-  //         child: Material(
-  //           color: hasClicked(i) ? kColorBlue : kColorDarkBlue,
-  //           borderRadius: hasClicked(i) ? null : BorderRadius.circular(10),
-  //           child: InkWell(
-  //             onTap: () {
-  //               setState(() {
-  //                 if (hasClicked(i)) {
-  //                   print("dfd");
-  //                   tempAnswerLocation[_questionIndex] = i;
-  //                   isClicked = false;
-  //                 } else {
-  //                   // print(tempAnswerLocation[_questionIndex]);
-  //                   isClicked = true;
-  //                 }
-  //               });
-  //             },
-  //             borderRadius: hasClicked(i) ? null : BorderRadius.circular(10),
-  //             child: Center(
-  //               child: Padding(
-  //                 padding: const EdgeInsets.all(10),
-  //                 child: Expanded(
-  //                   child: Text(
-  //                     questionsList[_questionIndex].questionAnswers[i],
-  //                     style: TextStyle(
-  //                         color: hasClicked(i) ? kColorDarkBlue : kColorWhite,
-  //                         fontSize: hasClicked(i) ? 50 : 30,
-  //                         fontWeight: hasClicked(i) ? FontWeight.bold : null),
-  //                     textAlign: TextAlign.center,
-  //                   ),
-  //                 ),
-  //               ),
-  //             ),
-  //           ),
-  //         ),
-  //       ),
-  //     );
-  //   }
-  //   //
-  //   return tempList;
-  //   //
-  // }
 
   List<Widget> makeQuestionNumber() {
     //
@@ -232,9 +202,17 @@ class _home_pageState extends State<home_page> {
               color: (_questionIndex == i) ? kColorBlue : kColorDarkBlue,
               child: InkWell(
                 onTap: () {
+                  _animationController.reset();
                   setState(() {
-                    isClicked = false;
-                    _questionIndex = i;
+                    //
+                      isClicked = true;
+                    //
+                    if (_questionIndex == questionsList.length) {
+                      _questionIndex = 0;
+                    } else {
+                      _questionIndex = i;
+                    }
+                    _animationController.forward();
                   });
                 },
                 borderRadius: BorderRadius.circular(35),
@@ -273,19 +251,26 @@ class _home_pageState extends State<home_page> {
   }
 
   bool hasClicked(int i) {
-    if (isClicked && tempAnswerLocation[_questionIndex] + 1 == i + 1) {
-      // print("yesss");
+    if (isClicked && tempAnswerLocation[_questionIndex] == i) {
       return true;
     } else {
       return false;
     }
   }
-}
 
-// void makeTempAnswerLocationMembers() {
-//   for (int i = 0; i < questionsList.length; i++) {
-//     tempAnswerLocation.add(4);
-//   }
-//   //
-//   print(tempAnswerLocation);
-// }
+  void nextQuestion() {
+      _animationController.reset();
+    setState(() {
+      //
+      isClicked = false;
+      //
+      if (_questionIndex+1 == questionsList.length) {
+        _questionIndex = 0;
+      } else {
+        _questionIndex++;
+      }
+      //
+      _animationController.forward();
+    });
+  }
+}

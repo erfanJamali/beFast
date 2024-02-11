@@ -12,7 +12,7 @@ class Question {
 List<Question> questionsList = [
   Question(
     "What is the capital of France?",
-    ["Berlin", "Paris", "Rome"],
+    ["Berlin", "Paris", "Rome", "Tehran"],
     2,
     "Alex",
   ),
@@ -59,7 +59,7 @@ List<Question> questionsList = [
     "Ava",
   ),
   Question(
-    "What is the largest mammal on Earth?",
+    "What is the largest animal on Earth?",
     ["Elephant", "Giraffe", "Blue whale", "Hippopotamus"],
     2,
     "William",
