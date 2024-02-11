@@ -14,11 +14,10 @@ late Size thisSize;
 //
 int _questionIndex = 0;
 //
-int _clickIndex = 0;
-//
 bool isClicked = false;
 //
 List<int> tempAnswerLocation = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+//
 
 class home_page extends StatefulWidget {
   const home_page({super.key});
@@ -101,7 +100,7 @@ class _home_pageState extends State<home_page> {
                               if (hasClicked(index)) {
                                 isClicked = false;
                               } else {
-                                tempAnswerLocation[index] = index;
+                                tempAnswerLocation[_questionIndex] = index;
                                 isClicked = true;
                               }
                             });
@@ -144,6 +143,7 @@ class _home_pageState extends State<home_page> {
             ),
             onPressed: () {
               setState(() {
+                isClicked = false;
                 if (_questionIndex == 9) {
                   _questionIndex = 0;
                 } else {
@@ -160,61 +160,63 @@ class _home_pageState extends State<home_page> {
     );
   }
 
-  List<Widget> makeQuestionAnswers() {
-    //
-    List<Widget> tempList = [];
-    //
-    for (int i = 0;
-        i < questionsList[_questionIndex].questionAnswers.length;
-        i++) {
-      tempList.add(
-        Container(
-          margin: const EdgeInsets.symmetric(vertical: 15),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(
-                color: kColorDarkBlue,
-                width: hasClicked(i) ? 8 : 0,
-              )),
-          child: Material(
-            color: hasClicked(i) ? kColorBlue : kColorDarkBlue,
-            borderRadius: hasClicked(i) ? null : BorderRadius.circular(10),
-            child: InkWell(
-              onTap: () {
-                setState(() {
-                  if (hasClicked(i)) {
-                    isClicked = false;
-                  } else {
-                    _clickIndex = i;
-                    isClicked = true;
-                  }
-                });
-              },
-              borderRadius: hasClicked(i) ? null : BorderRadius.circular(10),
-              child: Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Expanded(
-                    child: Text(
-                      questionsList[_questionIndex].questionAnswers[i],
-                      style: TextStyle(
-                          color: hasClicked(i) ? kColorDarkBlue : kColorWhite,
-                          fontSize: hasClicked(i) ? 50 : 30,
-                          fontWeight: hasClicked(i) ? FontWeight.bold : null),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ),
-      );
-    }
-    //
-    return tempList;
-    //
-  }
+  // List<Widget> makeQuestionAnswers() {
+  //   //
+  //   List<Widget> tempList = [];
+  //   //
+  //   for (int i = 0;
+  //       i < questionsList[_questionIndex].questionAnswers.length;
+  //       i++) {
+  //     tempList.add(
+  //       Container(
+  //         margin: const EdgeInsets.symmetric(vertical: 15),
+  //         decoration: BoxDecoration(
+  //             borderRadius: BorderRadius.circular(10),
+  //             border: Border.all(
+  //               color: kColorDarkBlue,
+  //               width: hasClicked(i) ? 8 : 0,
+  //             )),
+  //         child: Material(
+  //           color: hasClicked(i) ? kColorBlue : kColorDarkBlue,
+  //           borderRadius: hasClicked(i) ? null : BorderRadius.circular(10),
+  //           child: InkWell(
+  //             onTap: () {
+  //               setState(() {
+  //                 if (hasClicked(i)) {
+  //                   print("dfd");
+  //                   tempAnswerLocation[_questionIndex] = i;
+  //                   isClicked = false;
+  //                 } else {
+  //                   // print(tempAnswerLocation[_questionIndex]);
+  //                   isClicked = true;
+  //                 }
+  //               });
+  //             },
+  //             borderRadius: hasClicked(i) ? null : BorderRadius.circular(10),
+  //             child: Center(
+  //               child: Padding(
+  //                 padding: const EdgeInsets.all(10),
+  //                 child: Expanded(
+  //                   child: Text(
+  //                     questionsList[_questionIndex].questionAnswers[i],
+  //                     style: TextStyle(
+  //                         color: hasClicked(i) ? kColorDarkBlue : kColorWhite,
+  //                         fontSize: hasClicked(i) ? 50 : 30,
+  //                         fontWeight: hasClicked(i) ? FontWeight.bold : null),
+  //                     textAlign: TextAlign.center,
+  //                   ),
+  //                 ),
+  //               ),
+  //             ),
+  //           ),
+  //         ),
+  //       ),
+  //     );
+  //   }
+  //   //
+  //   return tempList;
+  //   //
+  // }
 
   List<Widget> makeQuestionNumber() {
     //
@@ -231,6 +233,7 @@ class _home_pageState extends State<home_page> {
               child: InkWell(
                 onTap: () {
                   setState(() {
+                    isClicked = false;
                     _questionIndex = i;
                   });
                 },
@@ -270,8 +273,8 @@ class _home_pageState extends State<home_page> {
   }
 
   bool hasClicked(int i) {
-    if (isClicked && tempAnswerLocation[_questionIndex]+1 == i) {
-      print("yesss");
+    if (isClicked && tempAnswerLocation[_questionIndex] + 1 == i + 1) {
+      // print("yesss");
       return true;
     } else {
       return false;
@@ -279,11 +282,10 @@ class _home_pageState extends State<home_page> {
   }
 }
 
-void makeTempAnswerLocationMembers() {
-  //
-  for (int i = 0; i < questionsList.length; i++) {
-    tempAnswerLocation.add(4);
-  }
-  //
-  print(tempAnswerLocation);
-}
+// void makeTempAnswerLocationMembers() {
+//   for (int i = 0; i < questionsList.length; i++) {
+//     tempAnswerLocation.add(4);
+//   }
+//   //
+//   print(tempAnswerLocation);
+// }
