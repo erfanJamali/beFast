@@ -15,9 +15,10 @@ late Size thisSize;
 //
 int _questionIndex = 0;
 //
-bool isClicked = true;
+//bool isClicked = true;
 //
-List<int> tempAnswerLocation = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+var tempAnswerLocation =
+List.generate(questionsList.length, (i) => List.generate(2, (j) => 0));
 //
 late AnimationController _animationController;
 late Animation _animation;
@@ -50,11 +51,14 @@ class _home_pageState extends State<home_page>
         });
       });
     _animationController.forward();
+    //
   }
 
   @override
   Widget build(BuildContext context) {
-    thisSize = MediaQuery.of(context).size;
+    thisSize = MediaQuery
+        .of(context)
+        .size;
     return Scaffold(
       backgroundColor: kColorWhite,
       body: Column(
@@ -76,7 +80,7 @@ class _home_pageState extends State<home_page>
               borderRadius: BorderRadius.circular(25),
               child: LinearProgressIndicator(
                 value: _animation.value,
-                valueColor: const AlwaysStoppedAnimation(Colors.red),
+                valueColor: AlwaysStoppedAnimation(kColorBlue),
               ),
             ),
           ),
@@ -112,7 +116,7 @@ class _home_pageState extends State<home_page>
               crossAxisSpacing: 30,
               children: List.generate(
                 questionsList[_questionIndex].questionAnswers.length,
-                (index) {
+                    (index) {
                   return Center(
                     child: Container(
                       margin: const EdgeInsets.symmetric(vertical: 15),
@@ -131,10 +135,11 @@ class _home_pageState extends State<home_page>
                           onTap: () {
                             setState(() {
                               if (hasClicked(index)) {
-                                isClicked = false;
+                                tempAnswerLocation[_questionIndex] = [0, index];
+                                // isClicked = false;
                               } else {
-                                tempAnswerLocation[_questionIndex] = index;
-                                isClicked = true;
+                                tempAnswerLocation[_questionIndex] = [1, index];
+                                // isClicked = true;
                               }
                             });
                             //nextQuestion();
@@ -190,7 +195,9 @@ class _home_pageState extends State<home_page>
           color: kColorDarkBlue,
           borderRadius: BorderRadius.circular(50),
           child: InkWell(
-            onTap: () {},
+            onTap: () {
+              pushResultPage();
+            },
             borderRadius: BorderRadius.circular(50),
             child: Container(
               padding: const EdgeInsets.all(20),
@@ -224,7 +231,7 @@ class _home_pageState extends State<home_page>
                   _animationController.reset();
                   setState(() {
                     //
-                    isClicked = true;
+                    // isClicked = true;
                     //
                     if (_questionIndex == questionsList.length) {
                       _questionIndex = 0;
@@ -270,9 +277,11 @@ class _home_pageState extends State<home_page>
   }
 
   bool hasClicked(int i) {
-    if (isClicked && tempAnswerLocation[_questionIndex] == i) {
+    if (tempAnswerLocation[_questionIndex][0] == 1 &&
+        tempAnswerLocation[_questionIndex][1] == i) {
       return true;
     } else {
+      //pushResultPage();
       return false;
     }
   }
@@ -281,10 +290,10 @@ class _home_pageState extends State<home_page>
     _animationController.reset();
     setState(() {
       //
-      isClicked = false;
+      //isClicked = false;
       //
       if (_questionIndex + 1 == questionsList.length) {
-        _questionIndex = 0;
+        //pushResultPage();
       } else {
         _questionIndex++;
       }
@@ -293,12 +302,12 @@ class _home_pageState extends State<home_page>
     });
   }
 
-  void showResultPage() {
-    _animationController.clearListeners();
+  void pushResultPage() {
+    //_animationController.clearListeners();
     Navigator.push(
         context,
         ModalBottomSheetRoute(
-            builder: (context) => showResult_page(),
+            builder: (context) => const showResult_page(),
             isScrollControlled: false));
   }
 }

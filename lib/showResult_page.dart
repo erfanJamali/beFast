@@ -76,7 +76,7 @@ class showResult_page extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(10),
                 child: Text(
-                  "QOU '${i + 1}':\r${questionsList[i].questionAnswers[tempAnswerLocation[i]]}",
+                  "QOU '${i + 1}':\r" + "${(tempAnswerLocation[i][0] == 0) ? "-- WHITE ANSWER --" : questionsList[i].questionAnswers[tempAnswerLocation[i][1]]}",
                   style: TextStyle(color: kColorDarkBlue, fontSize: 30),
                   textAlign: TextAlign.center,
                 ),
