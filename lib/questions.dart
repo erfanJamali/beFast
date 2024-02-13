@@ -1,3 +1,7 @@
+
+var tempAnswerLocation =
+List.generate(questionsList.length, (i) => List.generate(2, (j) => 0));
+
 class Question {
   String questionText;
   List<String> questionAnswers;
@@ -13,7 +17,7 @@ List<Question> questionsList = [
   Question(
     "What is the capital of France?",
     ["Berlin", "Paris", "Rome", "Tehran"],
-    2,
+    1,
     "Alex",
   ),
   Question(

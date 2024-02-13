@@ -1,6 +1,6 @@
 import 'package:befast/colors.dart';
 import 'package:befast/questions.dart';
-import 'package:befast/showResult_page.dart';
+import 'package:befast/result_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -11,18 +11,6 @@ void main() {
   );
 }
 
-late Size thisSize;
-//
-int _questionIndex = 0;
-//
-//bool isClicked = true;
-//
-var tempAnswerLocation =
-List.generate(questionsList.length, (i) => List.generate(2, (j) => 0));
-//
-late AnimationController _animationController;
-late Animation _animation;
-
 class home_page extends StatefulWidget {
   const home_page({super.key});
 
@@ -30,35 +18,40 @@ class home_page extends StatefulWidget {
   State<home_page> createState() => _home_pageState();
 }
 
+int questionIndex = 0;
+//
+late Size thisSize;
+//
+late AnimationController animationController;
+late Animation animation;
+
 class _home_pageState extends State<home_page>
     with SingleTickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
     //
-    _animationController =
+    animationController =
         AnimationController(duration: const Duration(seconds: 5), vsync: this);
-    _animation = Tween(begin: 0.0, end: 1.0).animate(_animationController)
+    animation = Tween(begin: 0.0, end: 1.0).animate(animationController)
       ..addListener(() {
         setState(() {
-          if ((_animation.value * 100).round() >= 98) {
+          if ((animation.value * 100).round() >= 98) {
             nextQuestion();
-            if (_animationController.isAnimating) {
-              _animationController.reset();
-              _animationController.forward();
+            if (animationController.isAnimating) {
+              animationController.reset();
+              animationController.forward();
             }
           }
         });
       });
-    _animationController.forward();
+    animationController.forward();
     //
   }
 
   @override
   Widget build(BuildContext context) {
-    thisSize = MediaQuery
-        .of(context)
-        .size;
+    thisSize = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: kColorWhite,
       body: Column(
@@ -79,7 +72,7 @@ class _home_pageState extends State<home_page>
             child: ClipRRect(
               borderRadius: BorderRadius.circular(25),
               child: LinearProgressIndicator(
-                value: _animation.value,
+                value: animation.value,
                 valueColor: AlwaysStoppedAnimation(kColorBlue),
               ),
             ),
@@ -97,7 +90,7 @@ class _home_pageState extends State<home_page>
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Expanded(
               child: Text(
-                questionsList[_questionIndex].questionText,
+                questionsList[questionIndex].questionText,
                 style: TextStyle(
                     color: kColorDarkBlue,
                     fontSize: 30,
@@ -115,8 +108,8 @@ class _home_pageState extends State<home_page>
               crossAxisCount: 2,
               crossAxisSpacing: 30,
               children: List.generate(
-                questionsList[_questionIndex].questionAnswers.length,
-                    (index) {
+                questionsList[questionIndex].questionAnswers.length,
+                (index) {
                   return Center(
                     child: Container(
                       margin: const EdgeInsets.symmetric(vertical: 15),
@@ -135,10 +128,10 @@ class _home_pageState extends State<home_page>
                           onTap: () {
                             setState(() {
                               if (hasClicked(index)) {
-                                tempAnswerLocation[_questionIndex] = [0, index];
+                                tempAnswerLocation[questionIndex] = [0, index];
                                 // isClicked = false;
                               } else {
-                                tempAnswerLocation[_questionIndex] = [1, index];
+                                tempAnswerLocation[questionIndex] = [1, index];
                                 // isClicked = true;
                               }
                             });
@@ -152,7 +145,7 @@ class _home_pageState extends State<home_page>
                               padding: const EdgeInsets.all(10),
                               child: Expanded(
                                 child: Text(
-                                  questionsList[_questionIndex]
+                                  questionsList[questionIndex]
                                       .questionAnswers[index],
                                   style: TextStyle(
                                       color: hasClicked(index)
@@ -225,20 +218,18 @@ class _home_pageState extends State<home_page>
             const SizedBox(width: 20),
             Material(
               borderRadius: BorderRadius.circular(35),
-              color: (_questionIndex == i) ? kColorBlue : kColorDarkBlue,
+              color: (questionIndex == i) ? kColorBlue : kColorDarkBlue,
               child: InkWell(
                 onTap: () {
-                  _animationController.reset();
+                  animationController.reset();
                   setState(() {
                     //
-                    // isClicked = true;
-                    //
-                    if (_questionIndex == questionsList.length) {
-                      _questionIndex = 0;
+                    if (questionIndex == questionsList.length) {
+                      questionIndex = 0;
                     } else {
-                      _questionIndex = i;
+                      questionIndex = i;
                     }
-                    _animationController.forward();
+                    animationController.forward();
                   });
                 },
                 borderRadius: BorderRadius.circular(35),
@@ -249,7 +240,7 @@ class _home_pageState extends State<home_page>
                     shape: BoxShape.circle,
                     border: Border.all(
                         width: 3,
-                        color: (_questionIndex == i)
+                        color: (questionIndex == i)
                             ? kColorDarkBlue
                             : kColorBlue),
                   ),
@@ -258,7 +249,7 @@ class _home_pageState extends State<home_page>
                     child: Text(
                       (i + 1).toString(),
                       style: TextStyle(
-                          color: (_questionIndex == i)
+                          color: (questionIndex == i)
                               ? kColorDarkBlue
                               : Colors.white,
                           fontSize: 30),
@@ -277,8 +268,8 @@ class _home_pageState extends State<home_page>
   }
 
   bool hasClicked(int i) {
-    if (tempAnswerLocation[_questionIndex][0] == 1 &&
-        tempAnswerLocation[_questionIndex][1] == i) {
+    if (tempAnswerLocation[questionIndex][0] == 1 &&
+        tempAnswerLocation[questionIndex][1] == i) {
       return true;
     } else {
       //pushResultPage();
@@ -287,27 +278,27 @@ class _home_pageState extends State<home_page>
   }
 
   void nextQuestion() {
-    _animationController.reset();
     setState(() {
       //
-      //isClicked = false;
-      //
-      if (_questionIndex + 1 == questionsList.length) {
-        //pushResultPage();
+      if (questionIndex + 1 == questionsList.length) {
+        questionIndex = 0;
+        animationController.reset();
+        pushResultPage();
       } else {
-        _questionIndex++;
+        animationController.reset();
+        questionIndex++;
+        animationController.forward();
       }
       //
-      _animationController.forward();
     });
   }
 
   void pushResultPage() {
-    //_animationController.clearListeners();
+    animationController.stop();
     Navigator.push(
         context,
         ModalBottomSheetRoute(
-            builder: (context) => const showResult_page(),
+            builder: (context) => const resultPage(),
             isScrollControlled: false));
   }
 }
