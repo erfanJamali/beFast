@@ -1,8 +1,11 @@
 import 'package:befast/main.dart';
 import 'package:befast/questions.dart';
+import 'package:befast/questionsDB.dart';
 import 'package:flutter/material.dart';
 
 import 'colors.dart';
+
+questionsDB db = questionsDB();
 
 class resultPage extends StatefulWidget {
   const resultPage({super.key});
@@ -67,7 +70,7 @@ class _resultPageState extends State<resultPage> {
     //
     List<Widget> tempList = [];
     //
-    for (int i = 0; i < questionsList.length; i++) {
+    for (int i = 0; i < db.DBSize(); i++) {
       tempList.add(
         InkWell(
           onTap: () {
@@ -98,7 +101,7 @@ class _resultPageState extends State<resultPage> {
               child: Padding(
                 padding: const EdgeInsets.all(10),
                 child: Text(
-                  "QOU '${i + 1}':\r${(tempAnswerLocation[i][0] == 0) ? "-- WHITE ANSWER --" : questionsList[i].questionAnswers[tempAnswerLocation[i][1]]}",
+                  "QOU '${i + 1}':\r${(tempAnswerLocation[i][0] == 0) ? "-- WHITE ANSWER --" : db.atMember(i).questionAnswers[tempAnswerLocation[i][1]]}",
                   style: TextStyle(
                       color: (isCorrect(i)) ? Colors.green : kColorDarkBlue,
                       fontSize: 30),
@@ -118,11 +121,11 @@ class _resultPageState extends State<resultPage> {
     //
     int point = 0;
     //
-    for (int i = 0; i < questionsList.length; i++) {
+    for (int i = 0; i < db.DBSize(); i++) {
       if (isCorrect(i)) {
         point++;
       } else {
-        if(tempAnswerLocation[i][0] == 1) {
+        if (tempAnswerLocation[i][0] == 1) {
           point--;
         }
       }
@@ -133,13 +136,14 @@ class _resultPageState extends State<resultPage> {
 
   void popBack() {
     Navigator.pop(context);
-    scrollController.animateTo(-thisSize.width, duration: const Duration(milliseconds: 500), curve: Curves.ease);
+    scrollController.animateTo(-thisSize.width,
+        duration: const Duration(milliseconds: 500), curve: Curves.ease);
     animationController.forward();
   }
 
   bool isCorrect(int i) {
     if (tempAnswerLocation[i][0] == 1 &&
-        tempAnswerLocation[i][1] == questionsList[i].trueAnswer) {
+        tempAnswerLocation[i][1] == db.atMember(i).trueAnswer) {
       return true;
     } else {
       return false;

@@ -1,5 +1,6 @@
 import 'package:befast/colors.dart';
 import 'package:befast/questions.dart';
+import 'package:befast/questionsDB.dart';
 import 'package:befast/result_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -29,6 +30,8 @@ late Animation animation;
 bool doReset = false;
 //
 ScrollController scrollController = ScrollController();
+//
+questionsDB db = questionsDB();
 
 class _home_pageState extends State<home_page>
     with SingleTickerProviderStateMixin {
@@ -100,7 +103,7 @@ class _home_pageState extends State<home_page>
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Expanded(
               child: Text(
-                questionsList[questionIndex].questionText,
+                db.atMember(questionIndex).questionText,
                 style: TextStyle(
                     color: kColorDarkBlue,
                     fontSize: 30,
@@ -118,7 +121,7 @@ class _home_pageState extends State<home_page>
               crossAxisCount: 2,
               crossAxisSpacing: 30,
               children: List.generate(
-                questionsList[questionIndex].questionAnswers.length,
+                db.atMember(questionIndex).questionAnswers.length,
                 (index) {
                   return Center(
                     child: Container(
@@ -155,7 +158,8 @@ class _home_pageState extends State<home_page>
                               padding: const EdgeInsets.all(10),
                               child: Expanded(
                                 child: Text(
-                                  questionsList[questionIndex]
+                                  db
+                                      .atMember(questionIndex)
                                       .questionAnswers[index],
                                   style: TextStyle(
                                       color: hasClicked(index)
@@ -221,7 +225,7 @@ class _home_pageState extends State<home_page>
     //
     List<Widget> tempList = [];
     //
-    for (int i = 0; i < questionsList.length; i++) {
+    for (int i = 0; i < db.DBSize(); i++) {
       tempList.add(
         Row(
           children: [
@@ -234,7 +238,7 @@ class _home_pageState extends State<home_page>
                   animationController.reset();
                   setState(() {
                     //
-                    if (questionIndex == questionsList.length) {
+                    if (questionIndex == db.DBSize()) {
                       questionIndex = 0;
                     } else {
                       questionIndex = i;
@@ -267,7 +271,7 @@ class _home_pageState extends State<home_page>
                 ),
               ),
             ),
-            SizedBox(width: (i + 1 == questionsList.length) ? 20 : 10),
+            SizedBox(width: (i + 1 == db.DBSize()) ? 20 : 10),
           ],
         ),
       );
@@ -290,7 +294,7 @@ class _home_pageState extends State<home_page>
   void nextQuestion() {
     setState(() {
       //
-      if (questionIndex + 1 == questionsList.length) {
+      if (questionIndex + 1 == db.DBSize()) {
         animationController.stop();
         pushResultPage();
       } else {
