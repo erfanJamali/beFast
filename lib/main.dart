@@ -14,6 +14,7 @@ void main() {
 class home_page extends StatefulWidget {
   const home_page({super.key});
 
+
   @override
   State<home_page> createState() => _home_pageState();
 }
@@ -24,6 +25,8 @@ late Size thisSize;
 //
 late AnimationController animationController;
 late Animation animation;
+//
+bool doReset = false;
 
 class _home_pageState extends State<home_page>
     with SingleTickerProviderStateMixin {
@@ -242,9 +245,8 @@ class _home_pageState extends State<home_page>
                     shape: BoxShape.circle,
                     border: Border.all(
                         width: 3,
-                        color: (questionIndex == i)
-                            ? kColorDarkBlue
-                            : kColorBlue),
+                        color:
+                            (questionIndex == i) ? kColorDarkBlue : kColorBlue),
                   ),
                   //margin: const EdgeInsets.all(20),
                   child: Center(
@@ -294,12 +296,16 @@ class _home_pageState extends State<home_page>
     });
   }
 
-  void pushResultPage() {
+  void pushResultPage() async {
     animationController.stop();
-    Navigator.push(
+    final result = await Navigator.push(
         context,
         ModalBottomSheetRoute(
             builder: (context) => const resultPage(),
             isScrollControlled: false));
+    if (doReset) {
+      makeTempAnswerListZero();
+      questionIndex = 0;
+    }
   }
 }

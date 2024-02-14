@@ -29,11 +29,12 @@ class _resultPageState extends State<resultPage> {
             Center(
               child: InkWell(
                 onTap: () {
+                  doReset = true;
                   popBack();
-                  if(questionIndex+1 == questionsList.length) {
-                    makeTempAnswerListZero();
-                    questionIndex = 0;
-                  }
+                  // if(questionIndex+1 == questionsList.length) {
+                  //   makeTempAnswerListZero();
+                  //   questionIndex = 0;
+                  // }
                 },
                 borderRadius: BorderRadius.circular(2.5),
                 child: Container(
@@ -70,9 +71,10 @@ class _resultPageState extends State<resultPage> {
       tempList.add(
         InkWell(
           onTap: () {
-            questionIndex = i;
             // Navigator.pop(context);
             // animationController.reset();
+            doReset = false;
+            questionIndex = i;
             popBack();
           },
           borderRadius: (i % 2 == 0)
