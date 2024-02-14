@@ -1,6 +1,9 @@
 
-var tempAnswerLocation =
-List.generate(questionsList.length, (i) => List.generate(2, (j) => 0));
+var tempAnswerLocation = [];
+
+void makeTempAnswerListZero(){
+  tempAnswerLocation = List.generate(questionsList.length, (i) => List.generate(2, (j) => 0));
+}
 
 class Question {
   String questionText;

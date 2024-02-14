@@ -31,6 +31,8 @@ class _home_pageState extends State<home_page>
   void initState() {
     super.initState();
     //
+    makeTempAnswerListZero();
+    //
     animationController =
         AnimationController(duration: const Duration(seconds: 5), vsync: this);
     animation = Tween(begin: 0.0, end: 1.0).animate(animationController)
@@ -281,7 +283,6 @@ class _home_pageState extends State<home_page>
     setState(() {
       //
       if (questionIndex + 1 == questionsList.length) {
-        questionIndex = 0;
         animationController.reset();
         pushResultPage();
       } else {

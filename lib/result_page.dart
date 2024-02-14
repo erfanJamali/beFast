@@ -30,6 +30,10 @@ class _resultPageState extends State<resultPage> {
               child: InkWell(
                 onTap: () {
                   popBack();
+                  if(questionIndex+1 == questionsList.length) {
+                    makeTempAnswerListZero();
+                    questionIndex = 0;
+                  }
                 },
                 borderRadius: BorderRadius.circular(2.5),
                 child: Container(
@@ -67,8 +71,8 @@ class _resultPageState extends State<resultPage> {
         InkWell(
           onTap: () {
             questionIndex = i;
-            Navigator.pop(context);
-            animationController.reset();
+            // Navigator.pop(context);
+            // animationController.reset();
             popBack();
           },
           borderRadius: (i % 2 == 0)
