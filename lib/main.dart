@@ -2,6 +2,7 @@ import 'package:befast/colors.dart';
 import 'package:befast/questions.dart';
 import 'package:befast/result_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 
 void main() {
   runApp(
@@ -13,7 +14,6 @@ void main() {
 
 class home_page extends StatefulWidget {
   const home_page({super.key});
-
 
   @override
   State<home_page> createState() => _home_pageState();
@@ -27,12 +27,16 @@ late AnimationController animationController;
 late Animation animation;
 //
 bool doReset = false;
+//
+ScrollController scrollController = ScrollController();
 
 class _home_pageState extends State<home_page>
     with SingleTickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
+    //
+
     //
     makeTempAnswerListZero();
     //
@@ -78,13 +82,14 @@ class _home_pageState extends State<home_page>
               borderRadius: BorderRadius.circular(25),
               child: LinearProgressIndicator(
                 value: animation.value,
-                valueColor: AlwaysStoppedAnimation(kColorBlue),
+                valueColor: AlwaysStoppedAnimation(Colors.red.shade500),
               ),
             ),
           ),
           const SizedBox(height: 30),
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
+            controller: scrollController,
             physics: const AlwaysScrollableScrollPhysics(),
             child: Row(
               children: makeQuestionNumber(),
@@ -220,7 +225,7 @@ class _home_pageState extends State<home_page>
       tempList.add(
         Row(
           children: [
-            const SizedBox(width: 20),
+            SizedBox(width: (i == 0) ? 20 : 10),
             Material(
               borderRadius: BorderRadius.circular(35),
               color: (questionIndex == i) ? kColorBlue : kColorDarkBlue,
@@ -262,6 +267,7 @@ class _home_pageState extends State<home_page>
                 ),
               ),
             ),
+            SizedBox(width: (i + 1 == questionsList.length) ? 20 : 10),
           ],
         ),
       );
@@ -285,9 +291,11 @@ class _home_pageState extends State<home_page>
     setState(() {
       //
       if (questionIndex + 1 == questionsList.length) {
-        animationController.reset();
+        animationController.stop();
         pushResultPage();
       } else {
+        scrollController.animateTo(questionIndex * 90.0,
+            duration: const Duration(seconds: 2), curve: Curves.ease);
         animationController.reset();
         questionIndex++;
         animationController.forward();

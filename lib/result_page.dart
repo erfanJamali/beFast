@@ -133,6 +133,7 @@ class _resultPageState extends State<resultPage> {
 
   void popBack() {
     Navigator.pop(context);
+    scrollController.animateTo(-thisSize.width, duration: const Duration(milliseconds: 500), curve: Curves.ease);
     animationController.forward();
   }
 
