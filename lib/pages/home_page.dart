@@ -145,7 +145,11 @@ class _HomePageState extends State<HomePage>
               crossAxisSpacing: 30,
               children: List.generate(
                 db.atMember(questionIndex).questionAnswers.length,
+<<<<<<< HEAD
                     (index) {
+=======
+                (index) {
+>>>>>>> 0adc3f99db531ccbfa875c7de8620860c2321e04
                   return Center(
                     child: Container(
                       margin: const EdgeInsets.symmetric(vertical: 15),
@@ -207,7 +211,11 @@ class _HomePageState extends State<HomePage>
           ),
           const SizedBox(height: 10),
           button_widget(_currentBtnText, kColorDarkBlue, Colors.white, 35, const Radius.circular(20),
+<<<<<<< HEAD
               nextQuestion, 10, 5),
+=======
+               nextQuestion, 10, 5),
+>>>>>>> 0adc3f99db531ccbfa875c7de8620860c2321e04
           const SizedBox(height: 20),
         ],
       ),
@@ -275,4 +283,8 @@ class _HomePageState extends State<HomePage>
       questionIndex = 0;
     }
   }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 0adc3f99db531ccbfa875c7de8620860c2321e04

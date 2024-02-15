@@ -41,7 +41,11 @@ class _ResultPageState extends State<ResultPage> {
                 ColorizeAnimatedText(
                   "RESUME",
                   textStyle:
+<<<<<<< HEAD
                   const TextStyle(color: Colors.black12, fontSize: 100),
+=======
+                      const TextStyle(color: Colors.black12, fontSize: 100),
+>>>>>>> 0adc3f99db531ccbfa875c7de8620860c2321e04
                   colors: [
                     kColorBlue,
                     kColorDarkBlue,
@@ -65,6 +69,7 @@ class _ResultPageState extends State<ResultPage> {
               scrollDirection: Axis.vertical,
               itemBuilder: (context, index) {
                 return showResultAnswers_widget(animationController, popBack,
+<<<<<<< HEAD
                         () {
                       animationController.reset();
                       doReset = false;
@@ -72,6 +77,15 @@ class _ResultPageState extends State<ResultPage> {
                       popBack();
                       animationController.forward();
                     }, index, thisSize);
+=======
+                    () {
+                  animationController.reset();
+                  doReset = false;
+                  questionIndex = index;
+                  popBack();
+                  animationController.forward();
+                }, index, thisSize);
+>>>>>>> 0adc3f99db531ccbfa875c7de8620860c2321e04
               },
             ),
           ),
@@ -104,4 +118,8 @@ class _ResultPageState extends State<ResultPage> {
         duration: const Duration(milliseconds: 500), curve: Curves.ease);
     animationController.forward();
   }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 0adc3f99db531ccbfa875c7de8620860c2321e04

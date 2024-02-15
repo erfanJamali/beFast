@@ -11,6 +11,7 @@ class button_widget extends StatelessWidget {
   final double _btnTextVerticalDistance;
 
   const button_widget(
+<<<<<<< HEAD
       this._btnText,
       this._btnLayoutColor,
       this._btnTextColor,
@@ -20,18 +21,38 @@ class button_widget extends StatelessWidget {
       this._btnTextHorizontalDistance,
       this._btnTextVerticalDistance,
       );
+=======
+    this._btnText,
+    this._btnLayoutColor,
+    this._btnTextColor,
+    this._btnTextSize,
+    this._btnRadius,
+    this._btnFun,
+    this._btnTextHorizontalDistance,
+    this._btnTextVerticalDistance,
+  );
+>>>>>>> 0adc3f99db531ccbfa875c7de8620860c2321e04
 
   @override
   Widget build(BuildContext context) {
     return Center(
       child: ElevatedButton(
         style: ButtonStyle(
+<<<<<<< HEAD
             backgroundColor: MaterialStateProperty.all(_btnLayoutColor),
             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                 RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(_btnRadius),
                 )
             )
+=======
+          backgroundColor: MaterialStateProperty.all(_btnLayoutColor),
+           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+             RoundedRectangleBorder(
+               borderRadius: BorderRadius.all(_btnRadius),
+             )
+           )
+>>>>>>> 0adc3f99db531ccbfa875c7de8620860c2321e04
         ),
         onPressed: _btnFun,
         child: Padding(
@@ -44,4 +65,8 @@ class button_widget extends StatelessWidget {
       ),
     );
   }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 0adc3f99db531ccbfa875c7de8620860c2321e04

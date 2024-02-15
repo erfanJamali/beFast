@@ -7,4 +7,9 @@ void main() {
       home: HomePage(),
     ),
   );
+<<<<<<< HEAD
 }
+=======
+}
+
+>>>>>>> 0adc3f99db531ccbfa875c7de8620860c2321e04

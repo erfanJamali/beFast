@@ -85,4 +85,8 @@ class QuestionsDB {
       return false;
     }
   }
+<<<<<<< HEAD:lib/models/questionsDB.dart
 }
+=======
+}
+>>>>>>> 0adc3f99db531ccbfa875c7de8620860c2321e04:lib/questionsDB.dart

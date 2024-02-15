@@ -41,7 +41,11 @@ class QuestionNumber_widget extends StatelessWidget {
                   (_i + 1).toString(),
                   style: TextStyle(
                       color:
+<<<<<<< HEAD
                       (questionIndex == _i) ? kColorDarkBlue : Colors.white,
+=======
+                          (questionIndex == _i) ? kColorDarkBlue : Colors.white,
+>>>>>>> 0adc3f99db531ccbfa875c7de8620860c2321e04
                       fontSize: 30),
                 ),
               ),
@@ -54,4 +58,8 @@ class QuestionNumber_widget extends StatelessWidget {
       ],
     );
   }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 0adc3f99db531ccbfa875c7de8620860c2321e04
