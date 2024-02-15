@@ -1,19 +1,8 @@
-import 'package:befast/questionsDB.dart';
-
-questionsDB db = questionsDB();
-
-var tempAnswerLocation = [];
-
-void makeTempAnswerListZero() {
-  tempAnswerLocation =
-      List.generate(db.DBSize(), (i) => List.generate(2, (j) => 0));
-}
-
 class Question {
-  String _questionText;
-  List<String> _questionAnswers;
-  int _trueAnswer;
-  String _questionWriter;
+  final String _questionText;
+  final List<String> _questionAnswers;
+  final int _trueAnswer;
+  final String _questionWriter;
 
   Question(this._questionText, this._questionAnswers, this._trueAnswer,
       this._questionWriter);
