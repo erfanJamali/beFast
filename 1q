@@ -1,0 +1,78 @@
+[33mcommit 65d291b7f98bbafc10c0ba9a5efedb81ca92159d[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morgin/master[m[33m)[m
+Author: Erfan Jamali <108428634+jerfan367@users.noreply.github.com>
+Date:   Wed Feb 14 19:47:37 2024 +0330
+
+    the project is encapsulated
+
+[33mcommit 6b8237fd67d58739a609bb79f6e5ad0ec8034d38[m
+Author: Erfan Jamali <108428634+jerfan367@users.noreply.github.com>
+Date:   Wed Feb 14 18:57:57 2024 +0330
+
+    automatic questionNumder scroll feature added
+
+[33mcommit fcdd71e6f07318680286025ea5dab0239de5ee1d[m
+Author: Erfan Jamali <108428634+jerfan367@users.noreply.github.com>
+Date:   Wed Feb 14 16:11:18 2024 +0330
+
+    some of features debuged
+
+[33mcommit 2bddfccdd1fd4bfa57193b068cbf26a85ae1e8f0[m
+Author: Erfan Jamali <108428634+jerfan367@users.noreply.github.com>
+Date:   Wed Feb 14 15:29:24 2024 +0330
+
+    some of features debuged
+
+[33mcommit 034554cf0ffd015daa9ee3abb5f6a84c161ec405[m
+Author: Erfan Jamali <108428634+jerfan367@users.noreply.github.com>
+Date:   Wed Feb 14 00:46:04 2024 +0330
+
+    rasult page developed
+
+[33mcommit e64d279fa9088a9290377a3f3ca87a77b9cfaa98[m
+Author: Erfan Jamali <108428634+jerfan367@users.noreply.github.com>
+Date:   Mon Feb 12 18:31:31 2024 +0330
+
+    tempAnswerList has developed
+
+[33mcommit a08bb00dc863a139b2b36941d448dcce3e2f30c8[m
+Author: Erfan Jamali <108428634+jerfan367@users.noreply.github.com>
+Date:   Mon Feb 12 00:24:19 2024 +0330
+
+    result page has been created
+
+[33mcommit 7cb5a519c2c122f329e7ef10258d4aa86a35437c[m
+Merge: b686092 cb57695
+Author: Erfan Jamali <108428634+jerfan367@users.noreply.github.com>
+Date:   Sun Feb 11 21:54:00 2024 +0330
+
+    Merge branch 'master' of https://github.com/erfanJamali/beFast
+
+[33mcommit b686092f59903d1848f704b22c0ad0c9b9fddcb7[m
+Author: Erfan Jamali <108428634+jerfan367@users.noreply.github.com>
+Date:   Sun Feb 11 21:53:49 2024 +0330
+
+    select last question feature
+
+[33mcommit 3264a5368928e6bdd5dbb69dcdade1491a6c7f04[m
+Author: Erfan Jamali <108428634+jerfan367@users.noreply.github.com>
+Date:   Sun Feb 11 17:53:46 2024 +0330
+
+    select user answer developed
+
+[33mcommit cb576954a6117cd3bbf01a16775ed49bc501b071[m
+Author: erfan jamali <146842099+erfanJamali@users.noreply.github.com>
+Date:   Thu Feb 8 09:58:34 2024 +0330
+
+    Update README.md
+
+[33mcommit b2e492bffa7b24c723e8ce547bc8d5dd348420b0[m
+Author: erfan jamali <146842099+erfanJamali@users.noreply.github.com>
+Date:   Thu Feb 8 09:58:14 2024 +0330
+
+    Update README.md
+
+[33mcommit 49b4022c0d93a491ff3768dcc04e97bcfc94de54[m
+Author: Erfan Jamali <108428634+jerfan367@users.noreply.github.com>
+Date:   Thu Feb 8 09:54:49 2024 +0330
+
+    first push

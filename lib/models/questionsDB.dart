@@ -1,7 +1,7 @@
-import 'package:befast/questions.dart';
+import 'package:befast/models/questions.dart';
+import 'package:befast/pages/home_page.dart';
 
-class questionsDB{
-
+class QuestionsDB {
   final List<Question> _questionsList = [
     Question(
       "What is the capital of France?",
@@ -47,7 +47,12 @@ class questionsDB{
     ),
     Question(
       "Who painted the 'Mona Lisa'?",
-      ["Vincent van Gogh", "Leonardo da Vinci", "Pablo Picasso", "Claude Monet"],
+      [
+        "Vincent van Gogh",
+        "Leonardo da Vinci",
+        "Pablo Picasso",
+        "Claude Monet"
+      ],
       1,
       "Ava",
     ),
@@ -65,12 +70,19 @@ class questionsDB{
     ),
   ];
 
-  int DBSize(){
+  int get DBSize {
     return _questionsList.length;
   }
 
-  Question atMember(int num){
+  Question atMember(int num) {
     return _questionsList[num];
   }
 
+  bool isTrue(int index) {
+    if (tempAnswerLocation[index][1] == _questionsList[index].trueAnswer) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }
