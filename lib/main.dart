@@ -161,7 +161,7 @@ class _home_pageState extends State<home_page>
                                       .questionAnswers[index],
                                   style: TextStyle(
                                       color: hasClicked(index)
-                                          ? kColorDarkBlue
+                                         ? kColorDarkBlue
                                           : kColorWhite,
                                       fontSize: hasClicked(index) ? 45 : 30,
                                       fontWeight: hasClicked(index)
